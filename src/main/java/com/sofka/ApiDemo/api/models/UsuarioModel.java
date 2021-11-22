@@ -11,8 +11,13 @@ public class UsuarioModel {
     @Column(unique = true, nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private Integer prioridad;
 
     public Long getId() {
