@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long> {
-    public abstract ArrayList<UsuarioModel> buscarPorPrioridad(Integer prioridad);
+    public abstract ArrayList<UsuarioModel> findByPrioridad(Integer prioridad);
 
 }
