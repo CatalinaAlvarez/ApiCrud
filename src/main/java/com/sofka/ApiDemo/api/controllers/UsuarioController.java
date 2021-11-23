@@ -3,6 +3,8 @@ package com.sofka.ApiDemo.api.controllers;
 import com.sofka.ApiDemo.api.models.UsuarioModel;
 import com.sofka.ApiDemo.api.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -41,14 +43,11 @@ public class UsuarioController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public String eliminarPorId(@PathVariable("id") Long id){
-        boolean ok = this.usuarioServices.eliminarUsuario(id);
-        Optional usuario = this.usuarioServices.obtenerPorId(id);
-        if(ok){
-            return "Se eliminó el usuario con id " + id;
-        }else{
-            return "No pudo eliminar el usuario con id " + id;
-        }
+    public ResponseEntity<String> eliminarPorId(@PathVariable("id") Long id){
+        if(usuarioServices.eliminarUsuario(id))
+            return new ResponseEntity<String>("Usuario con id " + id + " eliminado", HttpStatus.OK);
+        return new ResponseEntity<String>("Usuario no encontrado", HttpStatus.BAD_REQUEST);
+
     }
 
 
