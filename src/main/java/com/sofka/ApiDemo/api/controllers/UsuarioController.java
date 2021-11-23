@@ -1,5 +1,6 @@
 package com.sofka.ApiDemo.api.controllers;
 
+import antlr.Utils;
 import com.sofka.ApiDemo.api.models.UsuarioModel;
 import com.sofka.ApiDemo.api.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -17,8 +19,6 @@ public class UsuarioController {
 
     @Autowired
     UsuarioServices usuarioServices;
-
-
 
     @GetMapping
     public ArrayList<UsuarioModel> obtenerUsuarios(){
@@ -49,6 +49,17 @@ public class UsuarioController {
         return new ResponseEntity<String>("Usuario no encontrado", HttpStatus.BAD_REQUEST);
 
     }
+
+    @GetMapping("/email")
+    public UsuarioModel obtenerporEmail(@RequestBody UsuarioModel user) {
+        UsuarioModel userModel = usuarioServices.obtenerporEmail(user);
+        if(userModel != null) {
+            return this.usuarioServices.obtenerporEmail(user);
+        } else {
+            return null;
+        }
+    }
+
 
 
 
