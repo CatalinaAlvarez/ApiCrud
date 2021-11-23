@@ -13,15 +13,21 @@ public class UsuarioServices {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public ArrayList<UsuarioModel> obtenerUsuario(){
+    public ArrayList<UsuarioModel> obtenerUsuarios(){
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
     }
 
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){
-        return usuarioRepository.save(usuario);
+    public String guardarUsuario(UsuarioModel usuario){
+        try{
+            usuarioRepository.save(usuario);
+            return "Guardado exitoso";
+        }catch(Exception e){
+            return null;
+        }
     }
 
     public Optional<UsuarioModel> obtenerPorId(long id){
+
         return usuarioRepository.findById(id);
     }
 
@@ -39,6 +45,7 @@ public class UsuarioServices {
     }
 
     public void borrarUsuario(UsuarioModel usuario){
+
         usuarioRepository.deleteById(usuario.getId());
     }
 

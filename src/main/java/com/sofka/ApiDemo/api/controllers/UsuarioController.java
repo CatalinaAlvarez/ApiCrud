@@ -16,15 +16,18 @@ public class UsuarioController {
     @Autowired
     UsuarioServices usuarioServices;
 
+
+
     @GetMapping
     public ArrayList<UsuarioModel> obtenerUsuarios(){
 
-        return usuarioServices.obtenerUsuario();
+        return usuarioServices.obtenerUsuarios();
     }
 
     @PostMapping
-    public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
+    public String guardarUsuario(@RequestBody UsuarioModel usuario){
         return this.usuarioServices.guardarUsuario(usuario);
+
     }
 
     @GetMapping(path= "/{id}")
@@ -40,12 +43,18 @@ public class UsuarioController {
     @DeleteMapping(path = "/{id}")
     public String eliminarPorId(@PathVariable("id") Long id){
         boolean ok = this.usuarioServices.eliminarUsuario(id);
+        Optional usuario = this.usuarioServices.obtenerPorId(id);
         if(ok){
-            return "Se eliminó el usuario con id";
+            return "Se eliminó el usuario con id " + id;
         }else{
-            return "No pudo eliminar el usuario con id" + id;
+            return "No pudo eliminar el usuario con id " + id;
         }
     }
+
+
+
+
+
 
     //Crear el de update
 
